@@ -1,0 +1,29 @@
+---
+- name: Playbook to stop a openshift virt VM
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+#    vm_name: vmimported
+#    vm_namespace: winweb01
+  tasks:
+#  - name: Get a list of all VirtualMachines
+#    kubevirt.core.kubevirt_vm_info:
+#      namespace: default
+#      host: https://console-openshift-console.apps.5bnlm.dynamic.redhatworkshops.io
+#      username: admin
+#      password: 'eV_,4vRLg5w1'
+#      validate_certs: false
+#    register: vm_list
+
+  - name: stop a VirtualMachine
+    kubevirt.core.kubevirt_vm:
+      name: phil_test
+      namespace: default
+      state: present
+      running: false
+      host: https://console-openshift-console.apps.qdw7x.dynamic.redhatworkshops.io
+      username: admin
+      password: BCvN2MoiO,9
+#      api_key: 'sha256~F-z1GNsXbg3MtQV7S_DPRb_T58B7F8ZmC3jWUyggOSI'
+      validate_certs: false

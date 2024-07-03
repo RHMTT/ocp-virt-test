@@ -1,0 +1,7 @@
+- name: Authenticate with token and return all VirtualMachineInstances for all accessible namespaces
+  plugin: kubevirt.core.kubevirt
+  connections:
+    - host: https://api.5bnlm.dynamic.redhatworkshops.io:6443
+      username: admin
+      password: eV_,4vRLg5w1
+      validate_certs: false

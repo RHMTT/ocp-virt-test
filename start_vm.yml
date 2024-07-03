@@ -1,0 +1,10 @@
+---
+- name: Playbook to start a openshift virt VM
+  hosts: all
+  tasks:
+  - name: start a VirtualMachine
+    kubevirt.core.kubevirt_vm:
+      name: "{{ vm_name }}"
+      namespace: "{{ vm_namespace }}"
+      state: present
+      running: true

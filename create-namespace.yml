@@ -1,0 +1,23 @@
+---
+- name: playbook to pre-setup ocp
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    namespace_prefix: testing
+  tasks:
+
+- name: Create a k8s namespace
+  kubernetes.core.k8s:
+    name: "{{ item }}"
+    api_version: v1
+    kind: Namespace
+    state: present
+    host: https://api.ocp.example.com:8443
+    api_key:
+    validate_certs: false
+  loop:
+    - "{{ namespace_name }}-dev1"
+    - "{{ namespace_name }}-dev2"
+    - "{{ namespace_name }}-qa1"
+    - "{{ namespace_name }}-qa2"
