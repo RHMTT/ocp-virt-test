@@ -1,11 +1,9 @@
 ---
-namespace: "httpd"
-name: "database"
-url: 'http://s3.us-east.cloud-object-storage.appdomain.cloud/roadshowocpvirt/database.qcow2'
-boot_image_size: "16Gi"
-vm_cpus_cores: 1
+name: "winweb01"
+url: 'http://s3.us-east.cloud-object-storage.appdomain.cloud/roadshowocpvirt/winweb01.qcow2'
+boot_image_size: "90Gi"
+vm_cpus_cores: 2
 vm_cpus_sockets: 1
 vm_cpus_threads: 1
 vm_machine_type: 'q35'
-vm_memory_requests: '2Gi'
-cloud_init_secret: cloud-init
+vm_memory_requests: '6Gi'

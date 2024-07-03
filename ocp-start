@@ -1,0 +1,22 @@
+init requirements
+
+a) preinstall the aap operator
+b) deploy aap controller
+c) restore of aap config
+
+
+1.) create project / namespace
+oc create -
+    oc-new-dash-project[1-4]/namespace
+
+2.) create virtual machines from templates in each of the projects
+ {winweb01
+ winweb02
+ database} as per mikes example currently in place
+ ensure good tags associated with above
+
+3.) dont start the vm
+
+4.) have start vm as optional running secondary playbook
+
+have 1 environment not started

@@ -27,3 +27,5 @@
       password: BCvN2MoiO,9
 #      api_key: 'sha256~F-z1GNsXbg3MtQV7S_DPRb_T58B7F8ZmC3jWUyggOSI'
       validate_certs: false
+    register: ocp_vm_status
+    changed_when: ocp_vm_status.result.status.printableStatus == 'running'
