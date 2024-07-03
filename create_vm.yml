@@ -3,7 +3,7 @@
   connection: local
   gather_facts: false
   vars:
-    api-key:
+    api_key:
     host: 'https://api.ocp.example.com:6443'
     namespace_prefix: testing
     namespace: 
@@ -18,7 +18,8 @@
     - name: "Create Namespaces"
       kubernetes.core.k8s:
         host: "{{ host }}"
-        api-key: "{{ api-key }}"
+        api_key: "{{ api_key }}"
+        validate_certs: false
         state: present
         template: namespace.yml.j2
       loop: "{{ namespace }}"
@@ -26,7 +27,8 @@
     - name: "Create VirtualMachine"
       kubernetes.core.k8s:
         host: "{{ host }}"
-        api-key: "{{ api-key }}"
+        api_key: "{{ api_key }}"
+        validate_certs: false
         state: present
         template: virtualmachine.yml.j2
         namespace: "{{ item }}"
@@ -37,7 +39,7 @@
   connection: local
   gather_facts: false
   vars:
-    api-key:
+    api_key:
     host: 'https://api.ocp.example.com:6443'
     namespace_prefix: testing
     namespace: 
@@ -52,7 +54,8 @@
     - name: "Create VirtualMachine"
       kubernetes.core.k8s:
         host: "{{ host }}"
-        api-key: "{{ api-key }}"
+        api_key: "{{ api_key }}"
+        validate_certs: false
         state: present
         template: virtualmachine.yml.j2
         namespace: "{{ item }}"
@@ -63,7 +66,7 @@
   connection: local
   gather_facts: false
   vars:
-    api-key:
+    api_key:
     host: 'https://api.ocp.example.com:6443'
     namespace_prefix: testing
     namespace: 
@@ -78,7 +81,8 @@
     - name: "Create VirtualMachine"
       kubernetes.core.k8s:
         host: "{{ host }}"
-        api-key: "{{ api-key }}"
+        api_key: "{{ api_key }}"
+        validate_certs: false
         state: present
         template: virtualmachine.yml.j2
         namespace: "{{ item }}"
