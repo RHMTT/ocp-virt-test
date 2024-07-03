@@ -1,0 +1,55 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  creationTimestamp: null
+  labels:
+    app: database
+  name: {{ name }}
+  namespace: {{ item }}
+spec:
+  dataVolumeTemplates:
+    - apiVersion: cdi.kubevirt.io/v1beta1
+      kind DataVolume
+      metadata:
+        creationTimestamp: null
+        name: {{ name }}
+    spec:
+      source:
+        http: 
+          url: {{ url }}
+      storage:
+        resources:
+          requests:
+            storage: {{ boot_image_size }}
+    status: {}
+  running: false
+  template:
+    annotations:
+      vm.kubevirt.io/flavor: small
+      vm.kubevirt.io/os: centos7
+      vm.kubevirt.io/workload: server
+    metadata:
+      creationTimestamp: null
+      labels:
+        kubevirt.io/domain: {{ name }}
+        kubevirt.io/size: small
+    spec:
+      domain:
+        cpu:
+          cores: 1
+        devices:
+          disks:
+          - disk:
+              bus: virtio
+            name: rootdisk
+        machine:
+          type: {{ vm_machine_type }}
+        resources:
+          requests:
+            memory: {{ vm_memory_requests }}
+      terminationGracePeriodSeconds: 180
+      volumes:
+      - dataVolume:
+          name: {{ name }}
+        name: rootdisk
+status: {}

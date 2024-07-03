@@ -1,53 +1,25 @@
 - name: "Install database vms into all namespaces"
   hosts: all
+  vars:
+    namespace_prefix: testing
+    namespace: 
+      - "{{ namespace_prefix }}-dev1"
+      - "{{ namespace_prefix }}-dev2"
+      - "{{ namespace_prefix }}-qa1"
+      - "{{ namespace_prefix }}-qa2"
   vars_files:
     - vars.yml
 
   tasks:
-    - name: "Create Namespace {{ namespace }}"
+    - name: "Create Namespaces"
       kubernetes.core.k8s:
         state: present
         template: namespace.yml.j2
+      loop: "{{ namespace }}"
 
     - name: "Create VirtualMachine"
       kubernetes.core.k8s:
         state: present
         template: virtualmachine.yml.j2
         namespace: "{{ item }}"
-      loop:
-
-    - name: Wait for VM to be ready
-      kubernetes.core.k8s_info:
-        api_version: kubevirt.io/v1
-        kind: VirtualMachine
-        name: "{{ name }}"
-        namespace: "{{ item }}"
-      register: deploy_collection_vm
-      retries: 60
-      delay: 10
-      until:
-      - deploy_collection_vm.resources[0].status is defined
-      - deploy_collection_vm.resources[0].status.ready is true
-      loop:
-
-    - name: Wait for VM IP to be populated
-      kubernetes.core.k8s_info:
-        api_version: kubevirt.io/v1
-        kind: VirtualMachineInstance
-        name: "{{ name }}"
-        namespace: "{{ item }}"
-      register: deploy_collection_vmi
-      retries: 60
-      delay: 10
-      until: (deploy_collection_vmi.resources[0].status.interfaces[0]['ipAddress'] | default('')) | length > 0
-      loop:
-
-    - name: "Create Service"
-      kubernetes.core.k8s:
-        state: present
-        template: service.yml.j2
-
-    - name: "Create Route"
-      kubernetes.core.k8s:
-        state: present
-        template: route.yml.j2
+      loop: "{{ namespace }}"
