@@ -8,26 +8,21 @@ metadata:
   namespace: {{ item }}
 spec:
   dataVolumeTemplates:
-    - apiVersion: cdi.kubevirt.io/v1beta1
-      kind DataVolume
-      metadata:
-        creationTimestamp: null
-        name: {{ name }}
+  - metadata:
+      creationTimestamp: null
+      name: {{ name }}
     spec:
       source:
         http: 
           url: {{ url }}
       storage:
+        volumeMode: Block
         resources:
           requests:
             storage: {{ boot_image_size }}
     status: {}
   running: false
   template:
-    annotations:
-      vm.kubevirt.io/flavor: small
-      vm.kubevirt.io/os: centos7
-      vm.kubevirt.io/workload: server
     metadata:
       creationTimestamp: null
       labels:
@@ -42,8 +37,20 @@ spec:
           - disk:
               bus: virtio
             name: rootdisk
+        features:
+          acpi: {}
+          smm:
+            enabled: true 
+        firmware:
+          bootloader:
+            efi:
+              secureBoot: true       
         machine:
           type: {{ vm_machine_type }}
+        interfaces:
+        - masquerade: {}
+          model: virtio
+          name: default
         resources:
           requests:
             memory: {{ vm_memory_requests }}

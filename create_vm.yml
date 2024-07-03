@@ -1,6 +1,10 @@
 - name: "Install database vms into all namespaces"
-  hosts: all
+  hosts: localhost
+  connection: local
+  gather_facts: false
   vars:
+    api-key:
+    host: 'https://api.ocp.example.com:6443'
     namespace_prefix: testing
     namespace: 
       - "{{ namespace_prefix }}-dev1"
@@ -8,17 +12,73 @@
       - "{{ namespace_prefix }}-qa1"
       - "{{ namespace_prefix }}-qa2"
   vars_files:
-    - vars.yml
+    - vars/database.yml
 
   tasks:
     - name: "Create Namespaces"
       kubernetes.core.k8s:
+        host: "{{ host }}"
+        api-key: "{{ api-key }}"
         state: present
         template: namespace.yml.j2
       loop: "{{ namespace }}"
 
     - name: "Create VirtualMachine"
       kubernetes.core.k8s:
+        host: "{{ host }}"
+        api-key: "{{ api-key }}"
+        state: present
+        template: virtualmachine.yml.j2
+        namespace: "{{ item }}"
+      loop: "{{ namespace }}"
+
+- name: "Install winweb01 vms into all namespaces"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    api-key:
+    host: 'https://api.ocp.example.com:6443'
+    namespace_prefix: testing
+    namespace: 
+      - "{{ namespace_prefix }}-dev1"
+      - "{{ namespace_prefix }}-dev2"
+      - "{{ namespace_prefix }}-qa1"
+      - "{{ namespace_prefix }}-qa2"
+  vars_files:
+    - vars/winweb01.yml
+
+  tasks:
+    - name: "Create VirtualMachine"
+      kubernetes.core.k8s:
+        host: "{{ host }}"
+        api-key: "{{ api-key }}"
+        state: present
+        template: virtualmachine.yml.j2
+        namespace: "{{ item }}"
+      loop: "{{ namespace }}"
+
+- name: "Install winweb02 vms into all namespaces"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    api-key:
+    host: 'https://api.ocp.example.com:6443'
+    namespace_prefix: testing
+    namespace: 
+      - "{{ namespace_prefix }}-dev1"
+      - "{{ namespace_prefix }}-dev2"
+      - "{{ namespace_prefix }}-qa1"
+      - "{{ namespace_prefix }}-qa2"
+  vars_files:
+    - vars/winweb02.yml
+
+  tasks:
+    - name: "Create VirtualMachine"
+      kubernetes.core.k8s:
+        host: "{{ host }}"
+        api-key: "{{ api-key }}"
         state: present
         template: virtualmachine.yml.j2
         namespace: "{{ item }}"
