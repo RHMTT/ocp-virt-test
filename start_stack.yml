@@ -1,5 +1,5 @@
 ---
-- name: Playbook to stop an openshift virt VM
+- name: Playbook to start an openshift virt stack
   hosts: localhost
   tasks:
   - name: start a VirtualMachine stack
