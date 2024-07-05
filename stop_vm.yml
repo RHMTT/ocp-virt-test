@@ -1,7 +1,6 @@
 ---
 - name: Playbook to stop an openshift virt VM
   hosts: localhost
-  connection: local
   gather_facts: false
   tasks:
   - name: stop a VirtualMachine
