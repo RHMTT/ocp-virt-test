@@ -1,7 +1,7 @@
 - name: Authenticate with token and return all VirtualMachineInstances for all accessible namespaces
   plugin: kubevirt.core.kubevirt
   connections:
-    - host: https://api.5bnlm.dynamic.redhatworkshops.io:6443
+    - host: https://api.ocp.example.com:6443
       username: admin
-      password: eV_,4vRLg5w1
+      password: rBCvN2MoiO,9
       validate_certs: false
