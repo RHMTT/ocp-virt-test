@@ -1,0 +1,16 @@
+---
+- name: Playbook to stop an openshift virt VM
+  hosts: all
+  tasks:
+  - name: stop a VirtualMachine
+    kubevirt.core.kubevirt_vm:
+      name: "{{ item }}"
+      namespace: "{{ vm_namespace }}"
+      state: present
+      running: false
+    register: ocp_vm_status
+    changed_when: ocp_vm_status.result.status.printableStatus == 'Stopped'
+    loop:
+      - winweb02
+      - winweb01
+      - database
