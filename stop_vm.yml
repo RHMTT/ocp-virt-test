@@ -4,9 +4,9 @@
   tasks:
   - name: stop a VirtualMachine
     kubevirt.core.kubevirt_vm:
-      name: phils-test
-      namespace: default
+      name: "{{ vm_name }}"
+      namespace: "{{ vm_namespace }}"
       state: present
       running: false
     register: ocp_vm_status
-    changed_when: ocp_vm_status.result.status.printableStatus == 'Running'
+    changed_when: ocp_vm_status.result.status.printableStatus == 'Stopped'
