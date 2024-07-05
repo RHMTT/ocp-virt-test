@@ -9,4 +9,6 @@
       name: "{{ vm_name }}"
       namespace: "{{ vm_namespace }}"
       state: present
-      running: true
+      running: false
+    register: ocp_vm_status
+    changed_when: ocp_vm_status.result.status.printableStatus == 'Running'
