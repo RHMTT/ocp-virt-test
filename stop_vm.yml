@@ -1,6 +1,6 @@
 ---
 - name: Playbook to stop an openshift virt VM
-  hosts: all
+  hosts: localhost
   tasks:
   - name: stop a VirtualMachine
     kubevirt.core.kubevirt_vm:
