@@ -6,11 +6,13 @@
     kubevirt.core.kubevirt_vm:
       name: "{{ item }}"
       namespace: "{{ vm_namespace }}"
+      wait: true
+      wait_timeout: 180
       state: present
       running: true
     register: ocp_vm_status
     changed_when: ocp_vm_status.result.status.printableStatus == 'Stopped'
     loop:
-      - winweb02
-      - winweb01
       - database
+      - winweb01
+      - winweb02
