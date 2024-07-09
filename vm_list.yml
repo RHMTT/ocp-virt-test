@@ -4,7 +4,7 @@
   connection: local
   gather_facts: false
   tasks:
-  - name: Get a list of all VMs in {{ vm_namespace }}
+  - name: Get a list of all VMs in "{{ vm_namespace }}"
     kubevirt.core.kubevirt_vm_info:
       host: "{{ host }}"
       api_key: "{{ api_key }}"
