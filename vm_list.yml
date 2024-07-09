@@ -6,8 +6,5 @@
   tasks:
   - name: Get a list of all VMs namespace
     kubevirt.core.kubevirt_vm_info:
-      host: "https://api.ocp.example.com:6443"
-      api_key: "{{ api_key }}"
-      validate_certs: false
       namespace: "{{ vm_namespace }}"
     register: ocp_vm_list
