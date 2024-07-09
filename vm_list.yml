@@ -8,3 +8,9 @@
     kubevirt.core.kubevirt_vm_info:
       namespace: "{{ vm_namespace }}"
     register: ocp_vm_list
+
+  - name: list all vm names
+    debug:
+      var: item
+    loop: ocp_vm_list.resources.name
+    
