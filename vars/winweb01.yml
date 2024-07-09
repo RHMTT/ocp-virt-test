@@ -1,5 +1,7 @@
 ---
 name: "winweb01"
+app_id: "app"
+order: 2
 url: 'http://s3.us-east.cloud-object-storage.appdomain.cloud/roadshowocpvirt/winweb01.qcow2'
 boot_image_size: "90Gi"
 vm_cpus_cores: 2
