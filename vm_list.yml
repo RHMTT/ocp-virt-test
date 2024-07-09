@@ -11,6 +11,6 @@
 
   - name: list all vm names
     debug:
-      var: ocp_vm_list.resources.item
-    loop: name
+      var: item.name
+    loop: ocp_vm_list.resources
     
