@@ -1,0 +1,66 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  creationTimestamp: null
+  labels:
+    app: database
+  name: {{ name }}
+  namespace: {{ item }}
+spec:
+  dataVolumeTemplates:
+  - metadata:
+      creationTimestamp: null
+      name: {{ name }}
+    spec:
+      source:
+        http: 
+          url: {{ url }}
+      storage:
+        volumeMode: Block
+        resources:
+          requests:
+            storage: {{ boot_image_size }}
+    status: {}
+  running: false
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        kubevirt.io/domain: {{ name }}
+        kubevirt.io/size: small
+    spec:
+      domain:
+        cpu:
+          cores: {{ vm_cpus_cores }}
+        devices:
+          disks:
+          - disk:
+              bus: sata
+            name: rootdisk
+          inputs:
+          - bus: usb
+            name: tablet
+            type: tablet
+        features:
+          acpi: {}
+          smm:
+            enabled: true 
+        firmware:
+          bootloader:
+            efi:
+              secureBoot: true       
+        machine:
+          type: {{ vm_machine_type }}
+        interfaces:
+        - masquerade: {}
+          model: virtio
+          name: default
+        resources:
+          requests:
+            memory: {{ vm_memory_requests }}
+      terminationGracePeriodSeconds: 180
+      volumes:
+      - dataVolume:
+          name: {{ name }}
+        name: rootdisk
+status: {}
