@@ -57,7 +57,7 @@
         api_key: "{{ api_key }}"
         validate_certs: false
         state: present
-        template: virtualmachine.yml.j2
+        template: virtualmachine_win.yml.j2
         namespace: "{{ item }}"
       loop: "{{ namespace }}"
 
@@ -84,6 +84,6 @@
         api_key: "{{ api_key }}"
         validate_certs: false
         state: present
-        template: virtualmachine.yml.j2
+        template: virtualmachine_win.yml.j2
         namespace: "{{ item }}"
       loop: "{{ namespace }}"
