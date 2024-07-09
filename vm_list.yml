@@ -10,6 +10,6 @@
 
   - name: list all vm names
     debug:
-      var: item
-    loop: ocp_vm_list.resources.metadata.name
+      var: metadata.name
+    loop: ocp_vm_list.resources
     
