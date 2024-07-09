@@ -1,0 +1,10 @@
+---
+- name: Playbook to get list of all VM's
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+  - name: Get a list of all VMs in {{ vm_namespace }}
+    kubevirt.core.kubevirt_vm_info:
+      namespace: "{{ vm_namespace }}"
+    register: ocp_vm_list
