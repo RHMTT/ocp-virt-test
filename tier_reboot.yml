@@ -1,0 +1,64 @@
+---
+- name: stop web service.
+  hosts: web
+  gather_facts: false
+  become: true
+  tasks:
+    - service: 
+        name: httpd
+        state: stopped
+    - wait_for: port=80 state=drained
+
+- name: stop application service
+  hosts: app
+  gather_facts: false
+  become: true
+  tasks:
+    - service: 
+        name: tomcat
+        state: stopped
+    - wait_for: port=8009 state=stopped
+
+- name: stop database service
+  hosts: db
+  gather_facts: true
+  become: true
+  tasks:
+    - service: 
+        name: mariadb
+        state: stopped
+    - wait_for: host={{ ansible_eth0.ipv4.address }} port=3306 state=stopped
+
+- name: perform yum update on all boxes
+  hosts: app:db:web
+  gather_facts: false
+  tasks:
+    - yum:
+        name: '*'
+        state: latest
+    
+- name: start db service
+  hosts: db
+  gather_facts: false
+  become: true
+  tasks:
+    - service: name=mariadb state=started
+    - wait_for: port=3306 state=started
+
+- name: start application service
+  hosts: app
+  gather_facts: false
+  become: true
+  tasks:
+    - service: name=tomcat state=started
+    - wait_for: port=8009 state=started
+
+- name: start web service
+  hosts: web
+  gather_facts: false
+  become: true
+  tasks:
+    - service: 
+        name: httpd
+        state: started
+    - wait_for: port=80 state=started
