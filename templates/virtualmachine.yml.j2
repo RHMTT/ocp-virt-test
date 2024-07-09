@@ -3,7 +3,8 @@ kind: VirtualMachine
 metadata:
   creationTimestamp: null
   labels:
-    app: database
+    app: {{ app_id }}
+    order: {{ order }}
   name: {{ name }}
   namespace: {{ item }}
 spec:
