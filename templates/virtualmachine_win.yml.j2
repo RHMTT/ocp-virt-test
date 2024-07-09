@@ -58,6 +58,7 @@ spec:
         resources:
           requests:
             memory: {{ vm_memory_requests }}
+      evictionStrategy: None
       terminationGracePeriodSeconds: 180
       volumes:
       - dataVolume:
