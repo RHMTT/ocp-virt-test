@@ -13,7 +13,7 @@
       kind: Namespace
       state: "{{ namespace_state }}"
     loop:
-    - "{{ namespace_name }}-dev1"
-    - "{{ namespace_name }}-dev2"
-    - "{{ namespace_name }}-qa1"
-    - "{{ namespace_name }}-qa2"
+    - "{{ namespace_prefix }}-dev1"
+    - "{{ namespace_prefix }}-dev2"
+    - "{{ namespace_prefix }}-qa1"
+    - "{{ namespace_prefix }}-qa2"
