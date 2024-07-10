@@ -7,12 +7,12 @@
     namespace_prefix: testing
   tasks:
 
-- name: Create a k8s namespace
-  kubernetes.core.k8s:
-    name: "{{ item }}"
-    kind: Namespace
-    state: "{{ namespace_state }}"
-  loop:
+  - name: Create a k8s namespace
+    kubernetes.core.k8s:
+      name: "{{ item }}"
+      kind: Namespace
+      state: "{{ namespace_state }}"
+    loop:
     - "{{ namespace_name }}-dev1"
     - "{{ namespace_name }}-dev2"
     - "{{ namespace_name }}-qa1"
