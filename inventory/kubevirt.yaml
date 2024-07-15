@@ -1,4 +1,3 @@
----
 plugin: kubevirt.core.kubevirt
 connections:
   - host: https://api.ocp.example.com:6443
