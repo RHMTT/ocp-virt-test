@@ -1,0 +1,23 @@
+- name: "create custom project with vms"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    namespace_prefix: testing
+    namespace: "{{ namespace_name }}"
+  vars_files:
+    - vars/application.yml
+  tasks:
+    - name: "Create Namespaces"
+      kubernetes.core.k8s:
+        validate_certs: false
+        state: present
+        template: namespace.yml.j2
+      loop: "{{ namespace }}"
+
+    - name: "Create VirtualMachine"
+      kubernetes.core.k8s:
+        validate_certs: false
+        state: present
+        template: virtualmachine.yml.j2
+        namespace: "{{ namespace }}"
