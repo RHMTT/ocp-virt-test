@@ -88,7 +88,7 @@ metadata:
       operation: Update
       time: '2024-07-16T19:46:33Z'
   name: web
-  namespace: default
+  namespace: {{ namespace }}
   uid: 95e5e2b6-149d-4e19-840b-0d518234ad3c
 spec:
   dataVolumeTemplates:
@@ -157,12 +157,12 @@ spec:
       terminationGracePeriodSeconds: 180
       volumes:
         - dataVolume:
-            name: rhel8-olive-gull-95
+            name: {{ vm_name }}
           name: rootdisk
         - cloudInitNoCloud:
             userData: |-
               #cloud-config
               user: cloud-user
-              password: 15lk-pn23-ntij
+              password: {{ vm_password }}
               chpasswd: { expire: False }
           name: cloudinitdisk
